@@ -99,51 +99,76 @@ body{
 @media (max-width:820px){.grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* indicators header + weight controls */
-.ind-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
-.ind-header h2{margin:0}
-.weights-hint{font-size:11.5px;color:var(--muted);margin-bottom:10px;margin-top:4px}
+/* ── Tab switcher in top bar ── */
+.tab-switcher{display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;padding:3px;gap:2px}
+.tab-btn{font-family:inherit;font-size:13px;font-weight:600;color:#ccd0e8;
+  background:transparent;border:none;padding:7px 16px;border-radius:9px;
+  cursor:pointer;transition:.15s;white-space:nowrap;position:relative}
+.tab-btn:hover{color:#fff;background:rgba(255,255,255,.08)}
+.tab-btn.active{background:#fff;color:var(--navy);font-weight:700}
+.tab-dot{position:absolute;top:6px;inset-inline-end:6px;width:6px;height:6px;
+  border-radius:50%;background:var(--terra)}
+.topbar-title{font-size:15px;font-weight:700;color:#fff;flex:1;text-align:center}
 
-.weight-row{display:flex;align-items:center;gap:8px;margin-top:6px}
-.weight-label{font-size:11px;color:var(--muted);white-space:nowrap;min-width:36px}
-.weight-slider-wrap{flex:1}
-.weight-slider{
-  -webkit-appearance:none;appearance:none;
-  width:100%;height:4px;border-radius:999px;
-  background:#e4e7ef;outline:none;cursor:pointer;
-  transition:background .2s;
-}
-.weight-slider::-webkit-slider-thumb{
-  -webkit-appearance:none;appearance:none;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--thumb-color, var(--navy));
-  box-shadow:0 1px 4px rgba(30,30,66,.25);
-  cursor:pointer;transition:transform .1s;
-}
-.weight-slider::-webkit-slider-thumb:hover{transform:scale(1.2)}
-.weight-slider::-moz-range-thumb{
-  width:16px;height:16px;border:none;border-radius:50%;
-  background:var(--thumb-color, var(--navy));
-  box-shadow:0 1px 4px rgba(30,30,66,.25);
-  cursor:pointer;
-}
-.weight-pct{
-  font-size:11.5px;font-weight:700;
-  min-width:32px;text-align:start;
-}
+/* ── Chips custom badge ── */
+.chips-custom-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;
+  color:var(--purple);background:rgba(135,133,216,.15);border:1px solid rgba(135,133,216,.25);
+  padding:6px 12px;border-radius:999px;white-space:nowrap}
 
-/* reset button */
-.reset-weights-btn{
-  font-size:11px;font-weight:700;color:var(--terra);
-  background:rgba(194,107,79,.08);border:1px solid rgba(194,107,79,.2);
-  padding:4px 10px;border-radius:8px;cursor:pointer;font-family:inherit;
-  transition:.15s;white-space:nowrap;
-}
-.reset-weights-btn:hover{background:rgba(194,107,79,.15)}
+/* ── Indicator weight badge (dashboard) ── */
+.ind-weight-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px}
+.ind-custom-note{margin-top:14px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);
+  padding-top:10px;display:flex;align-items:center;gap:6px}
+.ind-settings-link{background:none;border:none;font-family:inherit;font-size:12px;
+  color:var(--purple);font-weight:700;cursor:pointer;padding:0;text-decoration:underline}
 
-/* custom weights badge on gauge card */
-.custom-weights-badge{
-  margin-top:6px;font-size:11px;font-weight:700;
-  color:var(--purple);background:#f0effc;
-  padding:3px 12px;border-radius:999px;
-}
+/* ── Settings page ── */
+.settings-page{padding:28px 0}
+.settings-header{display:flex;align-items:flex-start;justify-content:space-between;
+  gap:16px;margin-bottom:28px}
+.settings-title{font-size:22px;font-weight:800;color:#fff;margin:0 0 6px}
+.settings-sub{font-size:13.5px;color:#b9b9d6;margin:0;line-height:1.6}
+
+.reset-weights-btn{font-size:12px;font-weight:700;color:var(--terra);
+  background:rgba(194,107,79,.12);border:1px solid rgba(194,107,79,.25);
+  padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;
+  transition:.15s;white-space:nowrap;flex-shrink:0}
+.reset-weights-btn:hover{background:rgba(194,107,79,.22)}
+
+.settings-cards{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+.settings-card{background:var(--card);border-radius:18px;padding:20px 22px;
+  border:1px solid var(--line);box-shadow:var(--shadow)}
+.sc-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.sc-icon{font-size:22px;line-height:1;flex-shrink:0;margin-top:2px}
+.sc-info{flex:1}
+.sc-name{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.sc-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+.sc-pct{font-size:24px;font-weight:800;line-height:1;min-width:52px;text-align:start;transition:color .3s}
+
+.sc-bar-track{height:6px;background:#eef0f5;border-radius:999px;overflow:hidden;margin-bottom:14px}
+.sc-bar-fill{height:100%;border-radius:999px;transition:width .4s cubic-bezier(.22,1,.36,1)}
+
+.sc-slider-row{display:flex;align-items:center;gap:12px}
+.sc-min,.sc-max{font-size:11px;color:var(--muted);white-space:nowrap}
+
+/* shared slider style */
+.weight-slider{-webkit-appearance:none;appearance:none;flex:1;height:5px;border-radius:999px;
+  background:#e4e7ef;outline:none;cursor:pointer}
+.weight-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+  width:18px;height:18px;border-radius:50%;background:var(--thumb-color,var(--navy));
+  box-shadow:0 2px 6px rgba(30,30,66,.28);cursor:pointer;transition:transform .1s}
+.weight-slider::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.weight-slider::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;
+  background:var(--thumb-color,var(--navy));box-shadow:0 2px 6px rgba(30,30,66,.28);cursor:pointer}
+
+/* ── Settings preview strip ── */
+.settings-preview-card{background:var(--card);border-radius:18px;padding:20px 22px;
+  border:1px solid var(--line);box-shadow:var(--shadow)}
+.sp-title{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:14px;letter-spacing:.3px}
+.sp-bar{display:flex;height:14px;border-radius:999px;overflow:hidden;margin-bottom:16px;gap:2px}
+.sp-segment{transition:width .4s cubic-bezier(.22,1,.36,1)}
+.sp-legend{display:flex;flex-wrap:wrap;gap:10px 20px}
+.sp-leg-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink)}
+.sp-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.sp-leg-pct{font-weight:700;color:var(--muted);margin-inline-start:2px}
