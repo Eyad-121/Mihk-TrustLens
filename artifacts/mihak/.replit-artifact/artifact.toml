@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "مِحَك · TrustLens"
+version = "1.0.0"
+id = "artifacts/mihak"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22582
+
+[services.development]
+run = "pnpm --filter @workspace/mihak run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mihak", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mihak/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22582"
+BASE_PATH = "/"
