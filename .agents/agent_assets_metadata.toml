@@ -6,3 +6,63 @@ id = "htvhUZcNfUtpcgYnfszqy"
 uri = "file://.local/outputs/Website-Host.pptx"
 type = "slides"
 title = "Website Host.pptx"
+
+[[outputs]]
+id = "QGpLQS_hUnEgmdUmsvHd_"
+uri = "file://screenshots/slide-01.jpg"
+type = "image"
+title = "Slide 01"
+
+[[outputs]]
+id = "PicR8adCyTYYYiFtS44wl"
+uri = "file://screenshots/slide-02.jpg"
+type = "image"
+title = "Slide 02"
+
+[[outputs]]
+id = "t8gObB1itCeXiuckvOdGe"
+uri = "file://screenshots/slide-03.jpg"
+type = "image"
+title = "Slide 03"
+
+[[outputs]]
+id = "gzpXo60tJ0T5hJrDEk0EY"
+uri = "file://screenshots/slide-04.jpg"
+type = "image"
+title = "Slide 04"
+
+[[outputs]]
+id = "nJxP1PBBNWi-uoJS43b4_"
+uri = "file://screenshots/slide-05.jpg"
+type = "image"
+title = "Slide 05"
+
+[[outputs]]
+id = "Wh8DqWuUeyfWKcEzg6lqx"
+uri = "file://screenshots/slide-06.jpg"
+type = "image"
+title = "Slide 06"
+
+[[outputs]]
+id = "JXBk1SMs7LW4kWJiM6TPi"
+uri = "file://screenshots/slide-07.jpg"
+type = "image"
+title = "Slide 07"
+
+[[outputs]]
+id = "tdvNjWOO48pFZCrzORkx5"
+uri = "file://screenshots/slide-08.jpg"
+type = "image"
+title = "Slide 08"
+
+[[outputs]]
+id = "A3WOuey11Wx_KeczGOWtU"
+uri = "file://screenshots/slide-09.jpg"
+type = "image"
+title = "Slide 09"
+
+[[outputs]]
+id = "hAv8hzVYMiOql2ee7SK41"
+uri = "file://screenshots/slide-10.jpg"
+type = "image"
+title = "Slide 10"
