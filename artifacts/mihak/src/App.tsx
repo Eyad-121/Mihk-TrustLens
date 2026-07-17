@@ -387,91 +387,78 @@ function SettingsPage({ weights, onChange, onReset }: {
 
   return (
     <div className="settings-page fade">
-      {/* ── Weight controls ── */}
       <div className="settings-header">
         <div>
-          <h2 className="settings-title">أوزان المؤشرات</h2>
+          <h2 className="settings-title">معايرة نموذج التقييم</h2>
           <p className="settings-sub">
-            عدّل أهمية كل مؤشر في احتساب درجة الثقة التشغيلية. مثال: ارفع وزن «الالتزام بصرف الرواتب» إذا كان تأخر الرواتب مؤشر خطر حاسم في سياسة الإقراض لديكم. الأوزان تُطبَّق فوراً وتعكس على كل الشركات.
+            عدّل أهمية كل مؤشر في احتساب درجة الثقة التشغيلية وفق سياسة الإقراض لمؤسستكم. تُطبَّق التغييرات فوراً على جميع الشركات.
           </p>
         </div>
-        {isCustom && <button className="reset-weights-btn" onClick={onReset}>إعادة تعيين</button>}
+        {isCustom && (
+          <button className="reset-weights-btn" onClick={onReset}>
+            استعادة الافتراضي
+          </button>
+        )}
       </div>
 
-      <div className="settings-cards">
+      {/* ── Compact weight table ── */}
+      <div className="wt-card">
+        <div className="wt-head-row">
+          <span className="wt-col-name">المؤشر</span>
+          <span className="wt-col-source">المصدر</span>
+          <span className="wt-col-slider">الأهمية النسبية</span>
+          <span className="wt-col-pct">الوزن</span>
+        </div>
+
         {IND.map((label, i) => {
           const pct = pcts[i];
-          const color = pct >= 30 ? '#8785d8' : pct >= 20 ? '#1e1e42' : '#aab0c4';
           return (
-            <div key={i} className="settings-card">
-              <div className="sc-top">
-                <div className="sc-icon">{IND_ICONS[i]}</div>
-                <div className="sc-info">
-                  <div className="sc-name">{label}</div>
-                  <div className="sc-desc">{IND_DESC[i]}</div>
+            <div key={i} className="wt-row">
+              <div className="wt-col-name">
+                <div className="wt-name">{label}</div>
+                <div className="wt-desc">{IND_DESC[i]}</div>
+              </div>
+              <span className="wt-col-source wt-src">{['GOSI', 'مدد', 'ZATCA', 'Open Banking', 'SIMAH'][i]}</span>
+              <div className="wt-col-slider">
+                <div className="wt-track">
+                  <div className="wt-fill" style={{ width: `${weights[i]}%` }} />
                 </div>
-                <div className="sc-pct" style={{ color }}>{pct}٪</div>
-              </div>
-              <div className="sc-bar-track">
-                <div className="sc-bar-fill" style={{ width: `${weights[i]}%`, background: `linear-gradient(90deg, ${color}, ${color}aa)` }} />
-              </div>
-              <div className="sc-slider-row">
-                <span className="sc-min">أقل أهمية</span>
-                <input type="range" min={0} max={100} value={weights[i]}
+                <input
+                  type="range" min={0} max={100} value={weights[i]}
                   onChange={e => onChange(i, Number(e.target.value))}
-                  className="weight-slider"
-                  style={{ '--thumb-color': color } as React.CSSProperties} />
-                <span className="sc-max">أكثر أهمية</span>
+                  className="wt-slider"
+                />
+              </div>
+              <div className="wt-col-pct">
+                <span className="wt-pct-val" style={{
+                  color: pct >= 30 ? 'var(--purple)' : pct >= 20 ? 'var(--navy)' : 'var(--muted)'
+                }}>{pct}٪</span>
               </div>
             </div>
           );
         })}
-      </div>
 
-      {/* Distribution preview */}
-      <div className="settings-preview-card">
-        <div className="sp-title">معاينة توزيع الأوزان</div>
-        <div className="sp-bar">
-          {weights.map((w, i) => {
-            const widthPct = total === 0 ? 0 : (w / total) * 100;
-            return <div key={i} className="sp-segment"
-              style={{ width: `${widthPct}%`, background: IND_COLORS[i], opacity: widthPct < 2 ? 0 : 1 }}
-              title={`${IND[i]}: ${Math.round(widthPct)}٪`} />;
-          })}
-        </div>
-        <div className="sp-legend">
-          {IND.map((label, i) => (
-            <div key={i} className="sp-leg-item">
-              <span className="sp-dot" style={{ background: IND_COLORS[i] }} />
-              <span>{label}</span>
-              <span className="sp-leg-pct">{pcts[i]}٪</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Pricing plans ── */}
-      <div className="plans-section">
-        <h2 className="settings-title" style={{ fontSize: 18, marginBottom: 6 }}>خطط الوصول للبنوك وجهات التمويل</h2>
-        <p className="settings-sub" style={{ marginBottom: 20 }}>اختر خطة الوصول المناسبة لحجم عمليات مؤسستكم</p>
-        <div className="plans-grid">
-          <div className="plan-card">
-            <div className="plan-icon">🔍</div>
-            <h4>استعلام فردي</h4>
-            <p>دفع لكل عملية تحليل — مناسب لمراجعة طلبات تمويل فردية دون التزام شهري.</p>
-            <div className="plan-tag">الأنسب للمقرضين الأفراد</div>
+        {/* Distribution bar inside the table card */}
+        <div className="wt-dist">
+          <div className="wt-dist-label">توزيع الأوزان الكلي</div>
+          <div className="wt-dist-bar">
+            {weights.map((w, i) => {
+              const widthPct = total === 0 ? 0 : (w / total) * 100;
+              return (
+                <div key={i} className="wt-dist-seg"
+                  style={{ width: `${widthPct}%`, background: IND_COLORS[i], opacity: widthPct < 1 ? 0 : 1 }}
+                  title={`${IND[i]}: ${Math.round(widthPct)}٪`} />
+              );
+            })}
           </div>
-          <div className="plan-card plan-card--featured">
-            <div className="plan-icon">⚡</div>
-            <h4>اشتراك API — تكامل مباشر</h4>
-            <p>ربط محرك التقييم مباشرة بنظام إصدار القروض (LOS) لدى البنك، مع تنبيهات آلية عبر Webhook.</p>
-            <div className="plan-tag plan-tag--purple">الأكثر طلباً</div>
-          </div>
-          <div className="plan-card">
-            <div className="plan-icon">🏛️</div>
-            <h4>مؤسسي — محفظة كاملة</h4>
-            <p>مراقبة مستمرة لكامل محفظة العملاء مع تقارير تجميعية وتنبيهات مبكرة على مستوى القطاع.</p>
-            <div className="plan-tag">للمؤسسات المالية الكبرى</div>
+          <div className="wt-dist-legend">
+            {IND.map((label, i) => (
+              <div key={i} className="wt-leg-item">
+                <span className="wt-leg-dot" style={{ background: IND_COLORS[i] }} />
+                <span>{label}</span>
+                <span className="wt-leg-pct">{pcts[i]}٪</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
