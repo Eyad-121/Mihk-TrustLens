@@ -589,7 +589,6 @@ export default function App() {
                 <AnimatedGauge score={score} />
                 <div className="verdict" style={{ color: rec.verdict[1], background: `${rec.verdict[1]}1a` }}>{rec.verdict[0]}</div>
                 <AnimatedSectorBar score={score} sectorAvg={d.sectorAvg} />
-                <div className="peertxt">مجموعة النظراء: منشآت {d.size} — قطاع {d.sector}</div>
                 <Sparkline history={d.history} score={score} />
               </div>
 
