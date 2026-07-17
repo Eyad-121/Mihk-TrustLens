@@ -1,0 +1,27 @@
+kind = "slides"
+previewPath = "/mihak-slides/"
+title = "مِحَك · TrustLens — عرض الهاكاثون"
+version = "1.0.0"
+id = "artifacts/mihak-slides"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/mihak-slides/" ]
+localPort = 24883
+
+[services.development]
+run = "pnpm --filter @workspace/mihak-slides run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mihak-slides", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/mihak-slides/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24883"
+BASE_PATH = "/mihak-slides/"

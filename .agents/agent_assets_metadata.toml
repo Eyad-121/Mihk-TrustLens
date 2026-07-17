@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "htvhUZcNfUtpcgYnfszqy"
+uri = "file://.local/outputs/Website-Host.pptx"
+type = "slides"
+title = "Website Host.pptx"
